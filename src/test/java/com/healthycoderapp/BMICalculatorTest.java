@@ -27,7 +27,25 @@ class BMICalculatorTest {
         assertTrue(recommendation);
     }
 
-    @ParameterizedTest
+    //Version with Values from File
+    @ParameterizedTest(name = "weight={0}, height={1}")
+    @CsvFileSource(resources = "/diet-recommended-input-data.csv", numLinesToSkip = 1)
+    void shouldReturnTrue_when_DietIsRecommendedFromFile(Double coderWeight, Double coderHeigth) {
+        //given
+        double weight = coderWeight;
+        double height = coderHeigth;
+
+        //when
+        boolean recommendation = BMICalculator.isDietRecommended(weight, height);
+
+        //then
+        assertTrue(recommendation);
+    }
+
+
+
+//  @ParameterizedTest
+    @ParameterizedTest(name = "weight={0}, height={1}")//this is an option for better readability in Test-Report
     @CsvSource(value = {"70,1.70", "59, 1.65", "85, 1.85"})
     void should_return_false_when_Diet_is_not_Recommended(Double coderWeight, Double coderHeight) {
         //given
@@ -40,6 +58,7 @@ class BMICalculatorTest {
         //then
         assertFalse(recommendation);
     }
+
 
     @Test
     void should_throw_ArithmeticException_when_HeightZero() {
