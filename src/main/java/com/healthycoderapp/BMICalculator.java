@@ -10,9 +10,7 @@ public class BMICalculator {
 	public static boolean isDietRecommended(double weight, double height) {
 		if (height == 0.0) throw new ArithmeticException();
 		double bmi = weight / (height * height);
-		if (bmi < BMI_THRESHOLD)
-			return false;
-		return true;
+		return !(bmi < BMI_THRESHOLD);
 	}
 
 	public static Coder findCoderWithWorstBMI(List<Coder> coders) {
